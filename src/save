@@ -1,8 +1,6 @@
 import React, { useState, createContext, useContext } from "react";
 import { useSpring, animated, config } from "react-spring";
 import { useInView } from "react-intersection-observer";
-import { useRef, useEffect } from "react";
-import SvgBackground from "./SvgBackground";
 import {
   User,
   Briefcase,
@@ -178,9 +176,9 @@ const Portfolio = () => {
 
   const skills = {
     DevOps: ["Docker", "Kubernetes", "Jenkins", "ArgoCD", "Azure"],
-    Frameworks: ["Hono", "ExpressJs", "NestJS", "Laravel", "React"],
-    Languages: ["Javascript", "Typescript", "PHP", "C", "Java", "Python"],
-    OS: ["Linux", "Windows"],
+    Frameworks: ["NodeJs", "ExpressJs", "NestJS", "Laravel", "React"],
+    Languages: ["Javascript", "PHP", "C", "Java", "Python"],
+    OS: ["Debian", "Ubuntu", "CentOS", "PopOS", "Windows"],
   };
 
   const experiences = [
@@ -234,102 +232,156 @@ const Portfolio = () => {
           isDark ? "bg-gray-800" : "bg-white"
         } shadow-2xl rounded-lg overflow-hidden`}
       >
-        <div className="p-6 sm:p-8 flex flex-col items-center text-center">
-          <animated.img
-            style={photoProps}
-            src="/images/profile.png" // Replace with your profile photo URL
-            alt="Profile"
-            className="w-64 h-64 rounded-full mb-4 shadow-lg"
-          />
-          <h1
-            className={`text-4xl font-bold ${
-              isDark ? "text-white" : "text-gray-900"
-            }`}
-          >
-            Baha Kaabaoui
-          </h1>
-          <p
-            className={`mt-2 text-xl ${
-              isDark ? "text-gray-300" : "text-gray-600"
-            }`}
-          >
-            Software Engineer & DevOps Enthusiast
-          </p>
-        </div>
-
-        <div className="flex justify-center space-x-4 mt-4">
-          {/* Email */}
-          <a
-            href="mailto:kaabaoui.baha@gmail.com"
-            className={`text-xl ${
-              isDark ? "text-blue-300" : "text-blue-500"
-            } hover:underline`}
-          >
-            <Mail size={36} />
-          </a>
-
-          {/* GitHub */}
-          <a
-            href="https://github.com/kbbahaPro"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`text-xl ${
-              isDark ? "text-blue-300" : "text-blue-500"
-            } hover:underline`}
-          >
-            <Github size={36} />
-          </a>
-
-          {/* LinkedIn */}
-          <a
-            href="https://linkedin.com/in/kbbaha"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`text-xl ${
-              isDark ? "text-blue-300" : "text-blue-500"
-            } hover:underline`}
-          >
-            <Linkedin size={36} />
-          </a>
-        </div>
-
-        <div className="p-6 sm:p-8">
-          <Section title="About Me" icon={<User size={36} />}>
+        <div className="px-6 py-12">
+          <div className="text-center mb-12 flex flex-col items-center">
+            <animated.div
+              style={photoProps}
+              className="w-40 h-40 rounded-full overflow-hidden mb-6 border-4 border-blue-500 shadow-lg"
+            >
+              <img
+                src="/images/profile.png"
+                alt="Baha Kaabaoui"
+                className="w-full h-full object-cover"
+              />
+            </animated.div>
+            <h1
+              className={`text-5xl font-bold mb-3 ${
+                isDark ? "text-white" : "text-gray-900"
+              }`}
+            >
+              Baha Kaabaoui
+            </h1>
             <p
-              className={`text-lg leading-7 ${
+              className={`text-2xl mb-6 ${
+                isDark ? "text-gray-300" : "text-gray-600"
+              }`}
+            >
+              Software Engineer
+            </p>
+            <div className="flex justify-center space-x-6">
+              <a
+                href="mailto:kaabaoui.baha@gmail.com"
+                className={`${
+                  isDark
+                    ? "text-blue-400 hover:text-blue-300"
+                    : "text-blue-500 hover:text-blue-700"
+                } transition-colors duration-300 transform hover:scale-110`}
+              >
+                <Mail size={28} />
+              </a>
+              <a
+                href="https://linkedin.com/in/kbbaha"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${
+                  isDark
+                    ? "text-blue-400 hover:text-blue-300"
+                    : "text-blue-500 hover:text-blue-700"
+                } transition-colors duration-300 transform hover:scale-110`}
+              >
+                <Linkedin size={28} />
+              </a>
+              <a
+                href="https://github.com/kbbahaPro"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${
+                  isDark
+                    ? "text-gray-400 hover:text-gray-300"
+                    : "text-gray-700 hover:text-gray-900"
+                } transition-colors duration-300 transform hover:scale-110`}
+              >
+                <Github size={28} />
+              </a>
+            </div>
+          </div>
+
+          <Section title="Summary" icon={<User size={28} />}>
+            <p
+              className={`text-lg leading-relaxed ${
                 isDark ? "text-gray-300" : "text-gray-700"
               }`}
             >
-              I'm a passionate software engineer with a strong interest in
-              DevOps and cloud technologies. With a robust background in
-              full-stack development and cloud architecture, I love building
-              scalable solutions and optimizing workflows for better efficiency.
+              I am a Software Engineer holding a Bachelor's degree in Computer
+              Science and a National Engineering degree in Software
+              Architecture. I am passionate about computer science and possess
+              strong technical, business, and interpersonal skills, enabling me
+              to work effectively in a team and successfully complete projects.
             </p>
           </Section>
 
-          <Section title="Skills" icon={<Code size={36} />}>
-            {Object.keys(skills).map((category, i) => (
-              <div key={i} className="mb-4">
+          <Section title="Skills" icon={<Code size={28} />}>
+            {Object.entries(skills).map(([category, skillList]) => (
+              <div key={category} className="mb-6">
                 <h3
-                  className={`text-xl font-semibold mb-2 ${
-                    isDark ? "text-blue-300" : "text-blue-600"
+                  className={`text-xl font-semibold mb-3 ${
+                    isDark ? "text-gray-200" : "text-gray-700"
                   }`}
                 >
                   {category}
                 </h3>
-                <div className="flex flex-wrap">
-                  {skills[category].map((skill, index) => (
-                    <SkillBadge key={index} skill={skill} index={index} />
+                <div>
+                  {skillList.map((skill, index) => (
+                    <SkillBadge key={skill} skill={skill} index={index} />
                   ))}
                 </div>
               </div>
             ))}
           </Section>
 
-          <Section title="Experience" icon={<Briefcase size={36} />}>
-            {experiences.map((experience, index) => (
-              <ExperienceItem key={index} {...experience} />
+          <Section title="Experience" icon={<Briefcase size={28} />}>
+            {experiences.map((exp, index) => (
+              <ExperienceItem key={index} {...exp} />
             ))}
+          </Section>
+
+          <Section title="Education" icon={<GraduationCap size={28} />}>
+            <div
+              className={`mb-6 rounded-lg p-4 shadow-md ${
+                isDark ? "bg-gray-700" : "bg-gray-50"
+              }`}
+            >
+              <h3
+                className={`text-xl font-semibold ${
+                  isDark ? "text-blue-300" : "text-blue-600"
+                }`}
+              >
+                National Engineer's Degree in Software Engineering
+              </h3>
+              <p
+                className={`mt-1 ${isDark ? "text-gray-300" : "text-gray-600"}`}
+              >
+                Higher Institute of Applied Sciences and Technology of Sousse
+              </p>
+              <p
+                className={`mt-2 ${isDark ? "text-gray-400" : "text-gray-700"}`}
+              >
+                Minors: UI/UX Design; Data Science
+              </p>
+            </div>
+            <div
+              className={`rounded-lg p-4 shadow-md ${
+                isDark ? "bg-gray-700" : "bg-gray-50"
+              }`}
+            >
+              <h3
+                className={`text-xl font-semibold ${
+                  isDark ? "text-blue-300" : "text-blue-600"
+                }`}
+              >
+                Bachelor of Science in Computer Information Systems
+              </h3>
+              <p
+                className={`mt-1 ${isDark ? "text-gray-300" : "text-gray-600"}`}
+              >
+                Higher Institute of Mathematics and Informatics of Monastir
+              </p>
+              <p
+                className={`mt-2 ${isDark ? "text-gray-400" : "text-gray-700"}`}
+              >
+                Minors: Software Testing; Linux Systems
+              </p>
+            </div>
           </Section>
         </div>
       </div>
@@ -337,10 +389,12 @@ const Portfolio = () => {
   );
 };
 
-const App = () => (
-  <ThemeProvider>
-    <Portfolio />
-  </ThemeProvider>
-);
+function App() {
+  return (
+    <ThemeProvider>
+      <Portfolio />
+    </ThemeProvider>
+  );
+}
 
 export default App;

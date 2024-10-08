@@ -6,7 +6,10 @@
   height: 40vmin;
   pointer-events: none;
 }
-
+.app-container {
+  height: 100vh; /* Full viewport height */
+  overflow: hidden; /* Prevent scrolling */
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
